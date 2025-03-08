@@ -1,0 +1,2 @@
+i. User Signed in (using Email & password)
+ii. User Sign Up (user Email, First name, Last name, Mobile password)
