@@ -1,12 +1,10 @@
 
 require("dotenv").config();
 
-// 1. Basic LIB import
-//const router = require("./src/routes/api");
-//const userApi = require("./src/routes/usersApi")
-// const companysApi = require("./src/routes/companyApi")
-// const jobsApi = require("./src/routes/jobApi")
-// const applicationsApi = require("./src/routes/applicationApi")
+
+const userApi = require("./src/routes/usersApi")
+const tasksApi = require("./src/routes/taskApi")
+
 
 
 const express = require("express");
@@ -97,11 +95,9 @@ connectDB();
 
 const baseUrl = process.env.BASE_URL
 
-//app.use(`${baseUrl}/user-auth`, userApi); // .env ar kono kiso path ar modddhe set korte hore aivabe set korte hobe
-// app.use(`${baseUrl}/company`, companysApi);
-// app.use(`${baseUrl}/job`, jobsApi);
-// app.use(`${baseUrl}/application`, applicationsApi);
-//app.use(`${baseUrl}/products`, productssApi);
+app.use(`${baseUrl}/user-auth`, userApi); // .env ar kono kiso path ar modddhe set korte hore aivabe set korte hobe
+app.use(`${baseUrl}/tasks`, tasksApi);
+
 
 
 
