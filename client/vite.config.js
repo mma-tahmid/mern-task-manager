@@ -7,8 +7,22 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss()
+    tailwindcss(),
   ],
+
+
+  server: {
+    proxy: {
+      // je api endpoint dia start hobe seta bujia diar jonno
+      '/api/': {
+        target: 'http://localhost:5000',
+        //target: 'https://mern-job-portal-7ua2.onrender.com',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
+
 })
 
 
