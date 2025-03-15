@@ -61,60 +61,73 @@ exports.Registration = async (req, res) => {
 
 exports.Login = async (req, res) => {
 
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.send({ message: "All fields are required" })
-    }
-
-    const validUser = await usersModel.findOne({ email });
-
-    if (!validUser) {
-        return res.send(400).send({
-            success: false,
-            message: "Email is not Registered"
-        })
-    }
-
-    const isPasswordMatching = await bcrypts.compare(password, validUser.password)
-
-    if (!isPasswordMatching) {
-        return res.send(400).send({
-            success: false,
-            message: "Wrong Credentials"
-        })
-    }
-
-
-    // Step 3: Create Token
-    // Create Token using sign() method
-
-    const createToken = jwt.sign(
-        { userTokenId: validUser._id },
-        process.env.JWT_SECRET_KEY,
-        { expiresIn: '1d' }
-    )
-
-    const { password: excludedPassword, ...otherDetails } = validUser.toObject();
-
-    res.cookie(
-        "access_token", // token name
-        createToken,
-        {
-            expires: new Date(Date.now() + 3600000), // 1hour
-            // expires: new Date(Date.now() + 3 * 3600000), // 3 hours
-            // expires: new Date(Date.now() + 24 * 3600000), // one day
-            httpOnly: true,
-            sameSite: 'strict'
+        if (!email || !password) {
+            return res.send({ message: "All fields are required" })
         }
-    ).status(200).send({
-        success: true,
-        message: "Login Successfully",
-        output: otherDetails,
-        tokens: createToken
-    })
+
+        const validUser = await usersModel.findOne({ email });
+
+        if (!validUser) {
+            return res.status(400).send({
+                success: false,
+                message: "Email is not Registered"
+            })
+        }
+
+        const isPasswordMatching = await bcrypts.compare(password, validUser.password)
+
+        if (!isPasswordMatching) {
+            return res.status(400).send({
+                success: false,
+                message: "Wrong Credentials"
+            })
+        }
+
+
+        // Step 3: Create Token
+        // Create Token using sign() method
+
+        const createToken = jwt.sign(
+            { userTokenId: validUser._id },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '1d' }
+        )
+
+        const { password: excludedPassword, ...otherDetails } = validUser.toObject();
+
+        res.cookie(
+            "access_token", // token name
+            createToken,
+            {
+                expires: new Date(Date.now() + 3600000), // 1hour
+                // expires: new Date(Date.now() + 3 * 3600000), // 3 hours
+                // expires: new Date(Date.now() + 24 * 3600000), // one day
+                httpOnly: true,
+                sameSite: 'strict'
+            }
+        ).status(200).send({
+            success: true,
+            message: "Login Successfully",
+            output: otherDetails,
+            tokens: createToken
+        })
+    }
+
+    catch (error) {
+        //console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Login",
+            error
+        })
+    }
 
 }
+
+
 
 
 // Update Profile

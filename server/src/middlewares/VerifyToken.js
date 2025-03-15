@@ -8,14 +8,14 @@ exports.VerifyToken = (req, res, next) => {
 
     // token validation check
     if (!tokenKey) {
-        return res.status(401).json({ success: false, message: "You need to login" }); // if token is not set in cookies
+        return res.status(401).send({ success: false, message: "You need to login" }); // if token is not set in cookies
     }
     // You are not Authenticated
 
     // token decoded
     jwt.verify(tokenKey, process.env.JWT_SECRET_KEY, (err, information) => {
         if (err) {
-            return res.status(401).json({ success: false, message: "Token is not Valid" }); // if token is wrong
+            return res.status(401).send({ success: false, message: "Token is not Valid" }); // if token is wrong
         }
         req.userInformation = information;  // get decode user _id
         next();

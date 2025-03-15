@@ -1,0 +1,20 @@
+Reudx use:
+Login ---> yes
+Registration ---> NO
+ForgetPass ---> NO
+Dashboard Summary ----> yes
+Create New Task ------> NO
+Task List -----> YES
+Task Delete -----> YES, (Task Delete from store)
+Task Edit -----> YES
+Profile -----> YES
+
+
+TAILWIND CSS:
+✅ 1. Tailwind’s Layer System
+Tailwind uses three main layers:
+
+@layer base – For global resets (like html, body, *, etc.).
+@layer components – For custom reusable classes (e.g., .btn, .card).
+@layer utilities – For utility-first classes (e.g., p-4, text-center).
+When you write custom CSS outside these layers, it may conflict with Tailwind’s classes because of CSS specificity and load order.

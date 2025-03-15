@@ -7,6 +7,10 @@ import LoginPage from './Pages/LoginPage';
 import RegistrationPage from './Pages/RegistrationPage';
 import Page404 from './Pages/Page404';
 import CreateNewTaskPage from './Pages/CreateNewTaskPage';
+import NewTaskPage from './Pages/NewTaskPage';
+import CompletedTaskPage from './Pages/CompletedTaskPage';
+import InProgressTaskPage from './Pages/InProgressTaskPage';
+import CanceledTaskPage from './Pages/CanceledTaskPage';
 
 
 const appRouter = createBrowserRouter([
@@ -29,6 +33,26 @@ const appRouter = createBrowserRouter([
   {
     path: '/create-new-task',
     element: <CreateNewTaskPage />
+  },
+
+  {
+    path: '/new-task',
+    element: <NewTaskPage />
+  },
+
+  {
+    path: '/completed-task',
+    element: <CompletedTaskPage />
+  },
+
+  {
+    path: '/inprogress-task',
+    element: <InProgressTaskPage />
+  },
+
+  {
+    path: '/canceled-task',
+    element: <CanceledTaskPage />
   },
 
 

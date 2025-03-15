@@ -41,28 +41,28 @@ const SideNavBar = () => {
                             </div>
                         </Link>
 
-                        <Link className='block' to="">
+                        <Link className='block' to="/new-task">
                             <div className='flex items-center gap-x-1'>
                                 <MdOutlineFiberNew  className='text-orange-400 text-[24px]' />
                                 <span className='text-white font-bold text-[18px]'>New Task </span>
                             </div>
                         </Link>
 
-                        <Link className='block' to="">
+                        <Link className='block' to="/inprogress-task">
                             <div className='flex items-center gap-x-1'>
                                 <GrInProgress className='text-orange-400 text-[20px]' />
                                 <span className='text-white font-bold text-[18px]'>In progress</span>
                             </div>
                         </Link>
 
-                        <Link className='block' to="">
+                        <Link className='block' to="/completed-task">
                             <div className='flex items-center gap-x-1'>
                                 <IoIosCheckmarkCircleOutline className='text-orange-400 text-[20px]' />
                                 <span className='text-white font-bold text-[18px]'>Completed</span>
                             </div>
                         </Link>
 
-                        <Link className='block' to="">
+                        <Link className='block' to="/canceled-task">
                             <div className='flex items-center gap-x-1'>
                                 <MdCancelPresentation  className='text-orange-400 text-[20px]' />
                                 <span className='text-white font-bold text-[18px]'>Canceled</span>
