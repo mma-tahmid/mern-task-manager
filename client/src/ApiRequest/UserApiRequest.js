@@ -89,7 +89,7 @@ export const LogOutApiRequest = async (dispatch, navigate) => {
         if (response.data.success) {
             dispatch(SetAuthUser(null))
 
-            navigate("/")
+            navigate("/login")
             toast.success(response.data.message)
         }
 
