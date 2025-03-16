@@ -175,3 +175,31 @@ exports.UpdateProfile = async (req, res) => {
     }
 
 }
+
+// Logout
+
+exports.LogOut = async (req, res) => {
+
+    try {
+        return res.status(200).cookie(
+            "access_token",
+            "",
+            { maxAge: 0 }
+
+        ).send({
+            success: true,
+            message: "Log Out Successfully "
+        })
+
+    }
+
+    catch (error) {
+        console.log(error)
+        res.status(200).send({
+            success: false,
+            message: "Error in LogOut",
+            error
+        })
+    }
+
+}

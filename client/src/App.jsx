@@ -11,13 +11,14 @@ import NewTaskPage from './Pages/NewTaskPage';
 import CompletedTaskPage from './Pages/CompletedTaskPage';
 import InProgressTaskPage from './Pages/InProgressTaskPage';
 import CanceledTaskPage from './Pages/CanceledTaskPage';
+import PrivateRoutes from './Components/PrivateRoutes';
 
 
 const appRouter = createBrowserRouter([
 
   {
     path: '/',
-    element: <DashBoard_HomePage />
+    element: <PrivateRoutes> <DashBoard_HomePage /> </PrivateRoutes>
   },
 
   {

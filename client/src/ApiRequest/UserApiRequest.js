@@ -77,3 +77,26 @@ export const LoginRequest = async (inputData, navigate, dispatch) => {
         dispatch(EndLoading())
     }
 }
+
+
+
+export const LogOutApiRequest = async (dispatch, navigate) => {
+
+    try {
+
+        const response = await axios.get("/api/v7/user-auth/logout")
+
+        if (response.data.success) {
+            dispatch(SetAuthUser(null))
+
+            navigate("/")
+            toast.success(response.data.message)
+        }
+
+    }
+
+    catch (error) {
+        console.log(error)
+        toast.error(error.response.data.message) // Show Error in LogOut from Backend
+    }
+}

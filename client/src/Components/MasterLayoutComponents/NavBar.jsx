@@ -1,8 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GrTasks } from "react-icons/gr";
+import { LogOut } from 'lucide-react';
+import { LogOutApiRequest } from '../../ApiRequest/UserApiRequest';
+import { useDispatch } from 'react-redux';
 
 const NavBar = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+    const logOutHandler = async () => {
+
+        await LogOutApiRequest(dispatch, navigate)
+
+    }
 
     return (
 
@@ -26,6 +39,11 @@ const NavBar = () => {
                         <Link className=' py-2 px-2'>
                             <img src="https://t4.ftcdn.net/jpg/03/64/21/11/240_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" alt="profile_picture" className='h-10 w-10 rounded-full object-cover' />
                         </Link>
+
+                        <div className='flex gap-x-5 items-center'>
+                            <LogOut />
+                            <button onClick={logOutHandler} className='outline-none border-none cursor-pointer' variant="link"> Log Out</button>
+                        </div>
 
                     </div>
                 </div>
