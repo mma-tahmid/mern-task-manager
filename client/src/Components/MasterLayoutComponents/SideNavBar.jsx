@@ -27,7 +27,7 @@ const SideNavBar = () => {
                 {!collapsed && (
                     <nav className="space-y-4">
 
-                        <Link className='block' to="">
+                        <Link className='block' to="/">
                             <div className='flex items-center gap-x-1'>
                                 <MdOutlineSpaceDashboard className='text-orange-400 text-[20px]' />
                                 <span className='text-white font-bold text-[18px]'>Dashboard</span>

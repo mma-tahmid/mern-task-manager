@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema({
     title: { type: String, unique: true, required: true },
     description: { type: String, required: true },
-    status: { type: String },
+    status: { type: String, default: "new" },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",

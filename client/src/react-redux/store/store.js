@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "../slice/userSlice";
+import taskReducer from "../slice/taskSlice";
 
 
 import {
@@ -24,7 +25,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     userslc: userReducer, //userslc comes from name (userSlice.js)
-   
+    taskslc: taskReducer
 
 })
 

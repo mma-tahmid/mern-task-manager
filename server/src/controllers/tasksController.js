@@ -11,7 +11,7 @@ exports.CreateTask = async (req, res) => {
     try {
         const { title, description, status } = req.body
 
-        if (!title || !description || !status) {
+        if (!title || !description) {
             return res.send({ message: "All fields are Required" })
         }
 
