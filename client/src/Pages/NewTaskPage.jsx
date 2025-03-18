@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import MasterLayout from '../Components/MasterLayout';
-import { CheckCircle, Circle, Trash2 } from 'lucide-react';
 import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 
-const NewTaskPage = ({ isCompleted }) => {
+import { AiOutlineDelete } from "react-icons/ai";
+import { MdOutlineDateRange } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+
+
+const NewTaskPage = () => {
 
     const dispatch = useDispatch();
 
@@ -22,6 +26,8 @@ const NewTaskPage = ({ isCompleted }) => {
 
     const { newTask } = useSelector((state) => state.taskslc)
 
+
+
     return (
 
         <>
@@ -37,20 +43,35 @@ const NewTaskPage = ({ isCompleted }) => {
                                 <div>
                                     <h3 className="text-xl font-semibold text-gray-800">{item.title}</h3>
                                     <p className="text-gray-600 mt-1"> {item.description} </p>
-                                    <p className="text-gray-600 mt-1"> {item.formattedDate} </p>
                                 </div>
 
-                                <div className="flex items-center gap-4">
-                                    {/* Status Toggle Icon */}
-                                    <button className="text-green-500 hover:text-green-600 transition">
-                                        adad {/* {isCompleted ? <CheckCircle size={24} /> : <Circle size={24} />} */}
-                                    </button>
 
-                                    {/* Delete Icon */}
-                                    <button className="text-red-500 hover:text-red-600 transition">
-                                        {/* <Trash2 size={24} /> */}aad
-                                    </button>
+                                <div className='flex justify-between items-center mt-6'>
+
+                                    <div className="flex items-center gap-4 ">
+
+                                        <div className='flex gap-x-1 items-center'>
+                                            <MdOutlineDateRange className='text-[15px]' />
+                                            <p className='text-[15px] '>{item.formattedDate}</p>
+                                        </div>
+
+                                        {/* Status Toggle Icon */}
+                                        <button className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                            <CiEdit className='text-[20px]' />
+                                        </button>
+
+                                        {/* Delete Icon */}
+                                        <button className="text-red-500 hover:text-red-600 transition cursor-pointer">
+                                            <AiOutlineDelete className='text-[20px]' />
+                                        </button>
+                                    </div>
+
+                                    <div>
+                                        <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">{item.status}</span>
+
+                                    </div>
                                 </div>
+
 
                             </div>
 
