@@ -1,6 +1,6 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { EndLoading, SetAllCanceledTask, SetAllCompletedTask, SetAllNewTask, SetAllProgressTask, StartLoading } from '../react-redux/slice/taskSlice';
+import { EndLoading, SetAllCanceledTask, SetAllCompletedTask, SetAllNewTask, SetAllProgressTask, SetTotalTaskCountByStatus, StartLoading } from '../react-redux/slice/taskSlice';
 
 
 // Create Task
@@ -44,7 +44,7 @@ export const CreateTaskApiRequest = async (inputData, navigate, dispatch) => {
 
 
 
-// All New Task
+// 
 
 export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus) => {
 
@@ -71,7 +71,7 @@ export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus) => {
         else {
             toast.error("Some thing Went wrong")
         }
-        
+
     }
 
     catch (error) {
@@ -79,4 +79,41 @@ export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus) => {
     }
 
 }
+
+
+export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
+
+    try {
+
+        dispatch(StartLoading())
+
+        const response = await axios.get("/api/v7/tasks/count-total-number-by-task-status")
+
+        if (response.data.success) {
+            dispatch(SetTotalTaskCountByStatus(response.data.output))
+            // console.log(response.data)
+        }
+
+
+    }
+
+    catch (error) {
+        console.log(error)
+    }
+
+    finally {
+        dispatch(EndLoading())
+    }
+
+}
+
+
+export const DeleteTaskApiRequest = async () => {
+
+
+    
+}
+
+
+
 

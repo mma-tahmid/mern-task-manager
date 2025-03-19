@@ -207,10 +207,18 @@ exports.CountTotalNumberByTaskStatus = async (req, res) => {
         ]);
 
 
+        res.status(200).send({
+            success: true,
+            output: statusCount
+        })
 
-        res.status(200).json({ status: "success", data: statusCount });
-    } catch (err) {
-        res.status(400).json({ status: "fail", data: err });
+    } catch (error) {
+
+        res.status(500).send({
+            success: false,
+            message: "Error in Counting total Task by Status",
+            error
+        });
     }
 }
 

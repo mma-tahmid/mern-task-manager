@@ -1,9 +1,10 @@
-import React from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { GrTasks } from "react-icons/gr";
 import { LogOut } from 'lucide-react';
 import { LogOutApiRequest } from '../../ApiRequest/UserApiRequest';
 import { useDispatch, useSelector } from 'react-redux';
+import { SetAuthUser } from '../../react-redux/slice/userSlice';
 
 const NavBar = () => {
 
@@ -18,6 +19,8 @@ const NavBar = () => {
     }
 
     const { currentUser } = useSelector((state) => state.userslc)
+
+   
 
     return (
 
