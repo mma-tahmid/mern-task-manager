@@ -87,7 +87,7 @@ export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
 
         dispatch(StartLoading())
 
-        const response = await axios.get("/api/v7/tasks/count-total-number-by-task-status")
+        const response = await axios.get("/api/v7/tasks/count-total-number-by-task-status", { withCredentials: true })
 
         if (response.data.success) {
             dispatch(SetTotalTaskCountByStatus(response.data.output))
@@ -108,10 +108,25 @@ export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
 }
 
 
-export const DeleteTaskApiRequest = async () => {
+export const DeleteTaskApiRequest = async (taskId ) => {
 
+    try {
 
-    
+        // dispatch((StartLoading))
+
+        const response = await axios.delete(`/api/v7/tasks/delete-task/${taskId}`, { withCredentials: true });
+        toast.success(response.data.message)
+
+    } catch (error) {
+        console.error("Error deleting item:", error);
+        toast.error(error.response.data.message)
+    }
+
+    // finally {
+    //     dispatch((EndLoading))
+
+    // }
+
 }
 
 
