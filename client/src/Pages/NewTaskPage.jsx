@@ -7,6 +7,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import DeleteToDO from '../helper/DeleteAlert';
+import { useNavigate } from 'react-router-dom';
+import { updateStatusToDo } from '../helper/UpdateStatusAlert';
 
 
 
@@ -14,11 +16,11 @@ import DeleteToDO from '../helper/DeleteAlert';
 const NewTaskPage = () => {
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
 
     const fetchAllNewTask = async () => {
 
-        await AllTaskListByStatusApiRequest(dispatch, "new") //task-status= new
+        await AllTaskListByStatusApiRequest(dispatch, "new", navigate) //task-status= new
     }
 
 
@@ -36,6 +38,13 @@ const NewTaskPage = () => {
     const handleDelete = async (id) => {
         //console.log("Deleting Task ID:", taskId);
         await DeleteToDO(id)
+        fetchAllNewTask()
+    }
+
+    // Status Change
+    const statusChangeItem = async (id, statues) => {
+        //console.log("Deleting Task ID:", taskId);
+        await updateStatusToDo(id,statues)
         fetchAllNewTask()
     }
 
@@ -74,7 +83,7 @@ const NewTaskPage = () => {
                                         </div>
 
                                         {/* Status Toggle Icon */}
-                                        <button className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                        <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
                                         </button>
 

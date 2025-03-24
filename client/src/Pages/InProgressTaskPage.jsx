@@ -7,6 +7,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
+import DeleteToDO from '../helper/DeleteAlert';
+import { updateStatusToDo } from '../helper/UpdateStatusAlert';
 
 const InProgressTaskPage = () => {
 
@@ -23,7 +25,19 @@ const InProgressTaskPage = () => {
         fetchAllProgressTask()
     }, [])
 
+// Delete Functionality
 
+const handleDelete = async (id) => {
+    //console.log("Deleting Task ID:", taskId);
+    await DeleteToDO(id)
+    fetchAllProgressTask()
+}
+
+    const statusChangeItem = async (id, statues) => {
+        //console.log("Deleting Task ID:", taskId);
+        await updateStatusToDo(id,statues)
+        fetchAllProgressTask()
+    }
 
     const { progressTask } = useSelector((state) => state.taskslc)
 
@@ -56,12 +70,12 @@ const InProgressTaskPage = () => {
                                         </div>
 
                                         {/* Status Toggle Icon */}
-                                        <button className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                        <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}
-                                        <button className="text-red-500 hover:text-red-600 transition cursor-pointer">
+                                        <button onClick={() => handleDelete(item._id)} className="text-red-500 hover:text-red-600 transition cursor-pointer">
                                             <AiOutlineDelete className='text-[20px]' />
                                         </button>
                                     </div>

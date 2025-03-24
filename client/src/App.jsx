@@ -33,27 +33,27 @@ const appRouter = createBrowserRouter([
 
   {
     path: '/create-new-task',
-    element: <CreateNewTaskPage />
+    element: <PrivateRoutes> <CreateNewTaskPage /> </PrivateRoutes>
   },
 
   {
     path: '/new-task',
-    element: <NewTaskPage />
+    element: <PrivateRoutes> <NewTaskPage /> </PrivateRoutes>
   },
 
   {
     path: '/completed-task',
-    element: <CompletedTaskPage />
+    element: <PrivateRoutes> <CompletedTaskPage /> </PrivateRoutes>
   },
 
   {
     path: '/inprogress-task',
-    element: <InProgressTaskPage />
+    element: <PrivateRoutes> <InProgressTaskPage /> </PrivateRoutes>
   },
 
   {
     path: '/canceled-task',
-    element: <CanceledTaskPage />
+    element: <PrivateRoutes> <CanceledTaskPage /> </PrivateRoutes>
   },
 
 

@@ -46,7 +46,7 @@ export const CreateTaskApiRequest = async (inputData, navigate, dispatch) => {
 
 // 
 
-export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus) => {
+export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus, navigate) => {
 
     try {
         const response = await axios.get(`/api/v7/tasks/list-task-by-status/${taskStatus}`, { withCredentials: true })
@@ -76,6 +76,9 @@ export const AllTaskListByStatusApiRequest = async (dispatch, taskStatus) => {
 
     catch (error) {
         console.log(error)
+        if (error.response?.status === 401) {
+            navigate('/login'); // Redirect to login page
+        } // if cookies in browser is empty & expire then it works. doesn't show logout button automatic redirect login page
     }
 
 }
@@ -99,6 +102,8 @@ export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
 
     catch (error) {
         console.log(error)
+
+
     }
 
     finally {
@@ -108,7 +113,7 @@ export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
 }
 
 
-export const DeleteTaskApiRequest = async (taskId ) => {
+export const DeleteTaskApiRequest = async (taskId) => {
 
     try {
 
@@ -130,5 +135,24 @@ export const DeleteTaskApiRequest = async (taskId ) => {
 }
 
 
+// Update Status
 
+export const UpdateStatusApiRequest = async (taskId, taskStatus) => {
+
+    try {
+
+        const response = await axios.get(`/api/v7/tasks/update-task-status/${taskId}/${taskStatus}`, { withCredentials: true })
+
+        if (response.data.success) {
+            toast.success(response.data.message)
+            // console.log(response.data)
+        }
+
+    }
+
+    catch (error) {
+        console.log(error)
+    }
+
+}
 

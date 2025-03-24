@@ -7,6 +7,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
+import DeleteToDO from '../helper/DeleteAlert';
+import { updateStatusToDo } from '../helper/UpdateStatusAlert';
 
 
 
@@ -25,7 +27,20 @@ const CanceledTaskPage = () => {
         fetchAllCanceledTask()
     }, [])
 
+    // Delete Functionality
+    const handleDelete = async (id) => {
+        //console.log("Deleting Task ID:", taskId);
+        await DeleteToDO(id)
+        fetchAllCanceledTask()
+    }
 
+
+    // Status Change
+    const statusChangeItem = async (id, statues) => {
+        //console.log("Deleting Task ID:", taskId);
+        await updateStatusToDo(id, statues)
+        fetchAllCanceledTask()
+    }
 
     const { canceledTask } = useSelector((state) => state.taskslc)
 
@@ -58,18 +73,18 @@ const CanceledTaskPage = () => {
                                         </div>
 
                                         {/* Status Toggle Icon */}
-                                        <button className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                        <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}
-                                        <button className="text-red-500 hover:text-red-600 transition cursor-pointer">
+                                        <button onClick={() => handleDelete(item._id)} className="text-red-500 hover:text-red-600 transition cursor-pointer">
                                             <AiOutlineDelete className='text-[20px]' />
                                         </button>
                                     </div>
 
                                     <div>
-                                    <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">{item.status}</span>
+                                        <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">{item.status}</span>
 
 
                                     </div>

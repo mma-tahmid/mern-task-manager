@@ -6,23 +6,42 @@ import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import DeleteToDO from '../helper/DeleteAlert';
+import { updateStatusToDo } from '../helper/UpdateStatusAlert';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const CompletedTaskPage = () => {
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
 
     const fetchAllCompletedTask = async () => {
 
-        await AllTaskListByStatusApiRequest(dispatch, "completed") //task-status= completed
+        await AllTaskListByStatusApiRequest(dispatch, "completed", navigate) //task-status= completed
     }
 
 
     useEffect(() => {
         fetchAllCompletedTask()
     }, [])
+
+
+    //Delete Functionality
+
+    const handleDelete = async (id) => {
+        //console.log("Deleting Task ID:", taskId);
+        await DeleteToDO(id)
+        fetchAllCompletedTask()
+    }
+
+
+    const statusChangeItem = async (id, statues) => {
+        //console.log("Deleting Task ID:", taskId);
+        await updateStatusToDo(id, statues)
+        fetchAllCompletedTask()
+    }
 
 
 
@@ -57,18 +76,18 @@ const CompletedTaskPage = () => {
                                         </div>
 
                                         {/* Status Toggle Icon */}
-                                        <button className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                        <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}
-                                        <button className="text-red-500 hover:text-red-600 transition cursor-pointer">
+                                        <button onClick={() => handleDelete(item._id)} className="text-red-500 hover:text-red-600 transition cursor-pointer">
                                             <AiOutlineDelete className='text-[20px]' />
                                         </button>
                                     </div>
 
                                     <div>
-                                     
+
                                         <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset">{item.status}</span>
 
 

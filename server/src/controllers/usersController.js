@@ -1,6 +1,8 @@
 const usersModel = require("../models/userModel")
 const bcrypts = require('bcrypt')
-var jwt = require('jsonwebtoken')
+var jwt = require('jsonwebtoken');
+const cloudinary = require("../utility/cloudinary");
+const getDataUri = require("../utility/dataUri");
 
 
 // Registration
@@ -142,10 +144,36 @@ exports.UpdateProfile = async (req, res) => {
     try {
         const { firstName, lastName, mobile } = req.body
 
+        let imagefile = req.file
+
+        let imageUrl
+        //let resumeName
+
+        if (imagefile) {
+
+            if (imagefile.size > 5 * 1024 * 1024) {
+                return res.status(400).send({ message: "File size exceeds 5MB limit" });
+            }
+
+            const fileUri = getDataUri(imagefile);
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+                folder: "mern_task_manager",
+                public_id: publicId, // Use the same public_id to replace the image
+                overwrite: true, // Ensure the old image is replaced
+            });
+
+            imageUrl = cloudResponse.secure_url;
+            //console.log(resumeUrl)
+            // resumeName = file.originalname;
+            //console.log(resumeName)
+        }
+
+
         const updateData = {
             firstName,
             lastName,
             mobile,
+            photo: imageUrl
         };
 
         const updatedUser = await usersModel.findByIdAndUpdate(req.params.uid, { $set: updateData }, { new: true });
