@@ -147,7 +147,9 @@ exports.UpdateProfile = async (req, res) => {
         let imagefile = req.file
 
         let imageUrl
-        //let resumeName
+        let imagePublicId = `user_${req.params.uid}`; // Use a consistent publicId pattern
+        // example output: mern_task_manager/user_65c9a2f3
+       
 
         if (imagefile) {
 
@@ -156,24 +158,28 @@ exports.UpdateProfile = async (req, res) => {
             }
 
             const fileUri = getDataUri(imagefile);
+
             const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
                 folder: "mern_task_manager",
-                public_id: publicId, // Use the same public_id to replace the image
-                overwrite: true, // Ensure the old image is replaced
+                public_id: imagePublicId, // Fixed publicId ensures overwriting
+                overwrite: true, // Replace the old image
             });
 
-            imageUrl = cloudResponse.secure_url;
+            imageUrl = cloudResponse.secure_url; // Get new image URL
+
+
             //console.log(resumeUrl)
             // resumeName = file.originalname;
             //console.log(resumeName)
         }
 
-
         const updateData = {
             firstName,
             lastName,
             mobile,
-            photo: imageUrl
+            "photo.publicId": imagePublicId,
+            "photo.photoUrl": imageUrl
+            //photo: imageUrl
         };
 
         const updatedUser = await usersModel.findByIdAndUpdate(req.params.uid, { $set: updateData }, { new: true });
@@ -204,6 +210,17 @@ exports.UpdateProfile = async (req, res) => {
 
 }
 
+
+// Prepare updated data (condition added)
+//  const updateData = {
+//     firstName,
+//     lastName,
+//     mobile,
+//     ...(imageUrl && imagePublicId && {
+//         photo: { publicId: imagePublicId, photoUrl: imageUrl }
+//     }),
+// }
+
 // Logout
 
 exports.LogOut = async (req, res) => {
@@ -230,4 +247,4 @@ exports.LogOut = async (req, res) => {
         })
     }
 
-}
+}  
