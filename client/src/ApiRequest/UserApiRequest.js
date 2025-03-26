@@ -100,3 +100,44 @@ export const LogOutApiRequest = async (dispatch, navigate) => {
         toast.error(error.response.data.message) // Show Error in LogOut from Backend
     }
 }
+
+
+
+export const UpdateUserApiRequest = async (uId, inputData, dispatch) => {
+
+    try {
+
+        dispatch(StartLoading())
+
+        const response = await axios.put(`/api/v7/user-auth/update-profile/${uId}`, inputData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+            withCredentials: true
+        })
+
+        if (response.data.success) {
+
+            //navigate("/login")
+            dispatch(SetAuthUser(response.data.output))
+            toast.success(response.data.message) // toast use for notifications 
+        }
+        else {
+            toast.error(response.data.message)  // error of input field validation   
+        }
+
+    }
+    catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message); // Error of existing email 
+        } else {
+            //console.error("Network or other error:", error);
+            toast.error("Something went wrong. Please try again."); // Network error 
+        }
+    }
+
+    finally {
+        dispatch(EndLoading())
+    }
+
+}

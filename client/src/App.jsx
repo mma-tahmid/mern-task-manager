@@ -12,6 +12,7 @@ import CompletedTaskPage from './Pages/CompletedTaskPage';
 import InProgressTaskPage from './Pages/InProgressTaskPage';
 import CanceledTaskPage from './Pages/CanceledTaskPage';
 import PrivateRoutes from './Components/PrivateRoutes';
+import UpdateProfilePage from './Pages/UpdateProfilePage';
 
 
 const appRouter = createBrowserRouter([
@@ -29,6 +30,11 @@ const appRouter = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />
+  },
+
+  {
+    path: '/update-profile',
+    element: <UpdateProfilePage />
   },
 
   {

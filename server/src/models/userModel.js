@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     photo: {
         publicId: { type: String },
-        photoUrl: { type: String }
+        photoUrl: { type: String },
+        photofileName: { type: String },
     },
     createdDate: { type: Date, default: Date.now() }
 },

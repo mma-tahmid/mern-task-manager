@@ -46,8 +46,8 @@ const NavBar = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Link className=' py-2 px-2'>
-                                        <img src="https://t4.ftcdn.net/jpg/03/64/21/11/240_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" alt="profile_picture" className='h-10 w-10 rounded-full object-cover' />
+                                    <Link to="/update-profile" className='py-2 px-2 cursor-pointer'>
+                                        <img src={currentUser?.photo?.photoUrl} alt="profile_picture" className='h-10 w-10 rounded-full object-cover' />
                                     </Link>
 
                                     <div className='flex gap-x-5 items-center'>

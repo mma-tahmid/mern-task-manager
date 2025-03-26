@@ -223,6 +223,74 @@ exports.CountTotalNumberByTaskStatus = async (req, res) => {
 }
 
 
+
+
+exports.UpdateTask = async (req, res) => {
+
+    try {
+
+        let taskId = req.params.tid
+
+        const { title, description } = req.body
+
+        let task = await taskModels.findById(taskId);
+
+        if (!task) {
+            return res.status(404).send({
+                success: false,
+                message: "Task not found"
+            });
+        }
+
+
+
+        if (task.createdBy.toString() !== req.userInformation.userTokenId) {
+            return res.status(403).send({
+                success: false,
+                message: "You are not authorized to update this task"
+            });
+        }
+
+        let updateData = {
+            title,
+            description
+        }
+
+        let updatedTask = await taskModels.findByIdAndUpdate(taskId, { $set: updateData }, { new: true });
+
+        // let updatedTask = await taskModels.findByIdAndUpdate(taskId, { $set: { status: statuss } }, { new: true });
+
+        //let updatedTask = await taskModels.findByIdAndUpdate(taskId, { status: statuss }, { new: true });
+
+        if (!updatedTask) {
+            return res.status(404).send(
+                {
+                    success: false,
+                    message: "Task not found"
+                });
+        }
+
+        res.status(200).send({
+            success: true,
+            message: "Task Updated successfully",
+            output: updatedTask
+        });
+
+
+    }
+
+    catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Updating Task",
+            error
+        })
+    }
+
+}
+
+
 // Find and update the task only if the requesting user is the creator
 //  let updatedTask = await taskModels.findOneAndUpdate(
 //     { _id: taskId, createdBy: req.userInformation.individualUserTokenId }, // Filter

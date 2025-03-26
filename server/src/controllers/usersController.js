@@ -147,14 +147,16 @@ exports.UpdateProfile = async (req, res) => {
         let imagefile = req.file
 
         let imageUrl
+        let imageName
+
         let imagePublicId = `user_${req.params.uid}`; // Use a consistent publicId pattern
         // example output: mern_task_manager/user_65c9a2f3
        
 
         if (imagefile) {
 
-            if (imagefile.size > 5 * 1024 * 1024) {
-                return res.status(400).send({ message: "File size exceeds 5MB limit" });
+            if (imagefile.size > 1 * 1024 * 1024) {
+                return res.status(400).send({ message: "File size exceeds 1MB limit" });
             }
 
             const fileUri = getDataUri(imagefile);
@@ -166,19 +168,18 @@ exports.UpdateProfile = async (req, res) => {
             });
 
             imageUrl = cloudResponse.secure_url; // Get new image URL
-
-
-            //console.log(resumeUrl)
-            // resumeName = file.originalname;
-            //console.log(resumeName)
+            imageName = imagefile.originalname 
+           // console.log(imageName)
         }
 
+        
         const updateData = {
             firstName,
             lastName,
             mobile,
             "photo.publicId": imagePublicId,
-            "photo.photoUrl": imageUrl
+            "photo.photoUrl": imageUrl,
+            "photo.photofileName": imageName
             //photo: imageUrl
         };
 
