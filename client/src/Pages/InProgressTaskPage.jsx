@@ -6,15 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import { FaRegEdit } from "react-icons/fa";
 import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
 import DeleteToDO from '../helper/DeleteAlert';
 import { updateStatusToDo } from '../helper/UpdateStatusAlert';
+import { useNavigate } from 'react-router-dom';
 
 const InProgressTaskPage = () => {
 
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
 
     const fetchAllProgressTask = async () => {
 
@@ -25,17 +27,17 @@ const InProgressTaskPage = () => {
         fetchAllProgressTask()
     }, [])
 
-// Delete Functionality
+    // Delete Functionality
 
-const handleDelete = async (id) => {
-    //console.log("Deleting Task ID:", taskId);
-    await DeleteToDO(id)
-    fetchAllProgressTask()
-}
+    const handleDelete = async (id) => {
+        //console.log("Deleting Task ID:", taskId);
+        await DeleteToDO(id)
+        fetchAllProgressTask()
+    }
 
     const statusChangeItem = async (id, statues) => {
         //console.log("Deleting Task ID:", taskId);
-        await updateStatusToDo(id,statues)
+        await updateStatusToDo(id, statues)
         fetchAllProgressTask()
     }
 
@@ -74,6 +76,10 @@ const handleDelete = async (id) => {
                                             <CiEdit className='text-[20px]' />
                                         </button>
 
+                                        <button onClick={() => navigate(`/updated-task/${item._id}`)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                            <FaRegEdit className='text-[20px]' />
+                                        </button>
+
                                         {/* Delete Icon */}
                                         <button onClick={() => handleDelete(item._id)} className="text-red-500 hover:text-red-600 transition cursor-pointer">
                                             <AiOutlineDelete className='text-[20px]' />
@@ -81,7 +87,7 @@ const handleDelete = async (id) => {
                                     </div>
 
                                     <div>
-                                    <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset">{item.status}</span>
+                                        <span className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-indigo-700/10 ring-inset">{item.status}</span>
 
 
                                     </div>

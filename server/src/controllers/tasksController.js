@@ -276,7 +276,6 @@ exports.UpdateTask = async (req, res) => {
             output: updatedTask
         });
 
-
     }
 
     catch (error) {
@@ -285,6 +284,43 @@ exports.UpdateTask = async (req, res) => {
             success: false,
             message: "Error in Updating Task",
             error
+        })
+    }
+
+}
+
+
+exports.GetSingleTaskById = async (req, res) => {
+
+    try {
+
+        const userId = req.userInformation.userTokenId;
+
+        const singleTask = await taskModels.findById(req.params.tid)
+
+        // Check if task exists and belongs to the user
+        if (!singleTask || singleTask.createdBy.toString() !== userId) {
+            //match string = string
+            return res.status(404).send({
+                success: false,
+                message: "Task not found or you don't have permission to view it",
+            });
+        }
+
+        res.status(201).send({
+            success: true,
+            message: "Get Single Task",
+            output: singleTask,
+        })
+
+    }
+
+    catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            error,
+            message: "Error in Getting Single Task",
         })
     }
 

@@ -1,0 +1,3 @@
+update task ar khetre: frontebd
+i. age single task ar api call korte hobe & seta redux store korte hobe. (using custom hook) 
+ii. then frontend a useselector dia data dhore & update task api call kore update korte hobe

@@ -13,6 +13,7 @@ import InProgressTaskPage from './Pages/InProgressTaskPage';
 import CanceledTaskPage from './Pages/CanceledTaskPage';
 import PrivateRoutes from './Components/PrivateRoutes';
 import UpdateProfilePage from './Pages/UpdateProfilePage';
+import UpdatedTaskPage from './Pages/UpdatedTaskPage';
 
 
 const appRouter = createBrowserRouter([
@@ -60,6 +61,11 @@ const appRouter = createBrowserRouter([
   {
     path: '/canceled-task',
     element: <PrivateRoutes> <CanceledTaskPage /> </PrivateRoutes>
+  },
+
+  {
+    path: '/updated-task/:id',
+    element: <PrivateRoutes> <UpdatedTaskPage/> </PrivateRoutes>
   },
 
 

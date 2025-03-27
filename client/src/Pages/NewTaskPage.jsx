@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import { FaRegEdit } from "react-icons/fa";
 import DeleteToDO from '../helper/DeleteAlert';
 import { useNavigate } from 'react-router-dom';
 import { updateStatusToDo } from '../helper/UpdateStatusAlert';
@@ -44,9 +45,12 @@ const NewTaskPage = () => {
     // Status Change
     const statusChangeItem = async (id, statues) => {
         //console.log("Deleting Task ID:", taskId);
-        await updateStatusToDo(id,statues)
+        await updateStatusToDo(id, statues)
         fetchAllNewTask()
     }
+
+
+    //const taskId = "sdfdf"
 
 
 
@@ -85,6 +89,10 @@ const NewTaskPage = () => {
                                         {/* Status Toggle Icon */}
                                         <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
+                                        </button>
+
+                                        <button onClick={() => navigate(`/updated-task/${item._id}`)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                            <FaRegEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}

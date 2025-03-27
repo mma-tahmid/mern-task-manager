@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import { FaRegEdit } from "react-icons/fa";
 import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
 import DeleteToDO from '../helper/DeleteAlert';
 import { updateStatusToDo } from '../helper/UpdateStatusAlert';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -16,6 +18,7 @@ import { updateStatusToDo } from '../helper/UpdateStatusAlert';
 const CanceledTaskPage = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
 
     const fetchAllCanceledTask = async () => {
@@ -41,6 +44,8 @@ const CanceledTaskPage = () => {
         await updateStatusToDo(id, statues)
         fetchAllCanceledTask()
     }
+
+
 
     const { canceledTask } = useSelector((state) => state.taskslc)
 
@@ -75,6 +80,10 @@ const CanceledTaskPage = () => {
                                         {/* Status Toggle Icon */}
                                         <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
+                                        </button>
+
+                                        <button onClick={() => navigate(`/updated-task/${item._id}`)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                            <FaRegEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}

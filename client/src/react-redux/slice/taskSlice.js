@@ -7,7 +7,8 @@ const initialState = {
     completedTask: [],
     progressTask: [],
     canceledTask: [],
-    totalTaskCountByStatus: []
+    totalTaskCountByStatus: [],
+    singleTask: null
 }
 
 const TaskSlices = createSlice({
@@ -43,11 +44,16 @@ const TaskSlices = createSlice({
 
         SetTotalTaskCountByStatus: (state, action) => {
             state.totalTaskCountByStatus = action.payload
-        }
+        },
+
+        SetSingleTask: (state, action) => {
+            state.singleTask = action.payload
+        },
+
 
     }
 
 });
 
-export const { StartLoading, EndLoading, SetAllNewTask, SetAllCompletedTask, SetAllProgressTask, SetAllCanceledTask, SetTotalTaskCountByStatus } = TaskSlices.actions
+export const { StartLoading, EndLoading, SetAllNewTask, SetAllCompletedTask, SetAllProgressTask, SetAllCanceledTask, SetTotalTaskCountByStatus, SetSingleTask } = TaskSlices.actions
 export default TaskSlices.reducer 

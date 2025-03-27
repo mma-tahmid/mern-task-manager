@@ -6,6 +6,7 @@ import { AllTaskListByStatusApiRequest } from '../ApiRequest/TaskApiRequest';
 import { AiOutlineDelete } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import { FaRegEdit } from "react-icons/fa";
 import DeleteToDO from '../helper/DeleteAlert';
 import { updateStatusToDo } from '../helper/UpdateStatusAlert';
 import { useNavigate } from 'react-router-dom';
@@ -78,6 +79,10 @@ const CompletedTaskPage = () => {
                                         {/* Status Toggle Icon */}
                                         <button onClick={() => statusChangeItem(item._id, item.status)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
                                             <CiEdit className='text-[20px]' />
+                                        </button>
+
+                                        <button onClick={() => navigate(`/updated-task/${item._id}`)} className="cursor-pointer text-green-500 hover:text-green-600 transition">
+                                            <FaRegEdit className='text-[20px]' />
                                         </button>
 
                                         {/* Delete Icon */}
