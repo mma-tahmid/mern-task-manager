@@ -11,8 +11,11 @@ export const CreateTaskApiRequest = async (inputData, navigate, dispatch) => {
 
         dispatch(StartLoading())
 
+
+
         const response = await axios.post("/api/v7/tasks/create-task", inputData, { withCredentials: true })
         // inputData is a post body for post request
+
         if (response.data.success) {
             navigate("/new-task")
             toast.success(response.data.message)
@@ -25,13 +28,28 @@ export const CreateTaskApiRequest = async (inputData, navigate, dispatch) => {
 
     }
 
+    // catch (error) {
+    //     console.log(error)
+    //     if (error.response) {
+    //         toast.error(error.response.data.message); // Error of existing email 
+    //     } else {
+    //         //console.error("Network or other error:", error);
+    //         toast.error("Something went wrong. Please try again.") // Network error 
+    //     }
+
+    // }
+
     catch (error) {
-        console.log(error)
+        console.log(error);
+
         if (error.response) {
-            toast.error(error.response.data.message); // Error of existing email 
+            if (error.response.status === 401) {
+                window.location.href = "/login"; // Unauthorized, redirect to login
+            } else {
+                toast.error(error.response.data.message || "An error occurred."); // Other server-side errors
+            }
         } else {
-            //console.error("Network or other error:", error);
-            toast.error("Something went wrong. Please try again."); // Network error 
+            toast.error("Something went wrong. Please try again."); // Network error (no response)
         }
     }
 
@@ -102,7 +120,10 @@ export const TotalTaskCountByStatusApiRequest = async (dispatch) => {
 
     catch (error) {
         console.log(error)
-
+        if (error.response?.status === 401) {
+            //navigate('/login'); // Redirect to login page
+            window.location.href = "/login"
+        }
 
     }
 
@@ -125,6 +146,10 @@ export const DeleteTaskApiRequest = async (taskId) => {
     } catch (error) {
         console.error("Error deleting item:", error);
         toast.error(error.response.data.message)
+        if (error.response?.status === 401) {
+            //navigate('/login'); // Redirect to login page
+            window.location.href = "/login"
+        }
     }
 
     // finally {
@@ -152,6 +177,10 @@ export const UpdateStatusApiRequest = async (taskId, taskStatus) => {
 
     catch (error) {
         console.log(error)
+        if (error.response?.status === 401) {
+            //navigate('/login'); // Redirect to login page
+            window.location.href = "/login"
+        }
     }
 
 }

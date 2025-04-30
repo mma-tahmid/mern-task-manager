@@ -27,6 +27,7 @@ const UpdatedTaskPage = () => {
     });
 
     // Read the Data
+    //after reload updateTaskPage form ar input field a ager data show kore, new data stay kore na
     useEffect(() => {
         if (singleTask) {
             setInputData({
@@ -35,6 +36,9 @@ const UpdatedTaskPage = () => {
             });
         }
     }, [singleTask]);
+
+    // useEffect is a React Hook that runs side effects in a functional component.
+    //Here, it's used to update inputData whenever singleTask changes.
 
     const changeInputEventHandeler = (event) => {
         setInputData({ ...inputData, [event.target.name]: event.target.value })
