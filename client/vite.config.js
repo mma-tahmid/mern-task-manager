@@ -15,8 +15,8 @@ export default defineConfig({
     proxy: {
       // je api endpoint dia start hobe seta bujia diar jonno
       '/api/': {
-        target: 'http://localhost:5000',
-        //target: 'https://mern-job-portal-7ua2.onrender.com',
+        //target: 'http://localhost:5000',
+        target: 'https://mern-task-manager-maom.onrender.com',
         changeOrigin: true,
         secure: false
       }

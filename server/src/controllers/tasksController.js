@@ -42,7 +42,7 @@ exports.CreateTask = async (req, res) => {
     }
 
     catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in Creating New Task",
@@ -112,7 +112,7 @@ exports.UpdatetaskStatus = async (req, res) => {
     }
 
     catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in Updating Status",
@@ -140,7 +140,7 @@ exports.DeleteTask = async (req, res) => {
     }
 
     catch (error) {
-        console.log(error)
+       // console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in Deleting Task",
@@ -181,7 +181,7 @@ exports.ListTaskByStatus = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in getting Task list by Status",
@@ -279,7 +279,7 @@ exports.UpdateTask = async (req, res) => {
     }
 
     catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in Updating Task",
@@ -316,7 +316,7 @@ exports.GetSingleTaskById = async (req, res) => {
     }
 
     catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).send({
             success: false,
             error,

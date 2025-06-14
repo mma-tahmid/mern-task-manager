@@ -62,6 +62,7 @@ export const LoginRequest = async (inputData, navigate, dispatch) => {
         }
 
     }
+    
     catch (error) {
 
         if (error.response.status === 400) {
